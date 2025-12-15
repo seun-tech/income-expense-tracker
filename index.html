@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Income & Expense Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+
+  <!-- Sidebar -->
+   <div id="sidebar" class="sidebar">
+    <span id="navIcon" class="nav-icon">☰</span>
+    <div class="sidebar-header">
+      <h2>Budget Tracker</h2>
+           <span id="closeSidebar" class="close-btn">&times;</span>
+        </div>
+  <div id="sidebar" class="sidebar">
+    <span id="navIcon" class="nav-icon">☰</span>
+    <div class="sidebar-header">
+      <h2>Budget Tracker</h2>
+      <span id="closeSidebar" class="close-btn">&times;</span>
+    </div>
+    <ul>
+      <li class="active" data-page="dashboard"><i class="fas fa-chart-bar"></i> Dashboard</li>
+      <li data-page="income"><i class="fas fa-wallet"></i> Income</li>
+      <li data-page="expenses"><i class="fas fa-credit-card"></i> Expenses</li>
+      <li data-page="settings"><i class="fas fa-cog"></i> Settings</li>
+      <!-- NEW EXPORT SECTION TITLE -->
+    <li class="section-title">Export</li>
+
+    <!-- EXPORT BUTTONS -->
+    <li id="exportPdfBtn">
+        <i class="fas fa-file-pdf"></i> Export to PDF
+    </li>
+
+    <li id="exportExcelBtn">
+        <i class="fas fa-file-excel"></i> Export to Excel
+    </li>
+    </ul>
+  </div>
+  <!-- Put near top of sidebar -->
+<div id="profileSection" style="display:none; padding:12px; text-align:center; color:#fff;">
+  <img id="profileAvatar" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:56px;height:56px;border-radius:50%;">
+  <div id="profileName" style="margin-top:8px;font-weight:bold"></div>
+  <button id="logoutBtn" class="btn" style="margin-top:8px;">Logout</button>
+</div>
+
+
+  <!-- Main content -->
+  <div class="content">
+    <!-- Dashboard -->
+    <div id="dashboard">
+      <h2>Account Summary</h2>
+      <label>Date Filter: <input type="date" id="filterDate"></label>
+      <div>
+        <h3>Total Income: <span id="totalIncome">0</span> | Daily: <span id="dailyIncome">0</span></h3>
+        <h3>Total Expenses: <span id="totalExpense">0</span> | Daily: <span id="dailyExpense">0</span></h3>
+        <h3>Balance: <span id="balance">0</span></h3>
+      <div class="metric-card"><h3>% Change</h3><p id="pctChange">0%</p></div>
+      </div>
+      <div class="chart-row">
+        <canvas id="topExpensesChart"></canvas>
+        <canvas id="paymentMethodChart"></canvas>
+      </div>
+      <div class="chart-full">
+        <canvas id="monthlyComboChart"></canvas>
+      </div>
+    </div>
+
+
+
+    <!-- Income -->
+    <div id="income" class="hidden">
+      <h2>Income</h2>
+      <button class="btn btn-add" id="addIncomeBtn">Add Income</button>
+      <input type="text" id="searchIncome" placeholder="Search...">
+      <table id="incomeTable">
+        <thead><tr><th>Date</th><th>Source</th><th>Amount</th><th>Payment</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Expenses -->
+    <div id="expenses" class="hidden">
+      <h2>Expenses</h2>
+      <button class="btn btn-add" id="addExpenseBtn">Add Expense</button>
+      <input type="text" id="searchExpense" placeholder="Search...">
+      <table id="expenseTable">
+        <thead><tr><th>Date</th><th>Item</th><th>Amount</th><th>Payment</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings" class="hidden">
+      <h2>Settings</h2>
+      <label>Theme:
+        <select id="themeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+      <hr>
+      <h3>Add Income Category</h3>
+      <input type="text" id="newIncomeCategory" placeholder="Income category name">
+      <button id="addIncomeCategoryBtn" class="btn btn-add">Add</button>
+      <h3>Add Expense Category</h3>
+      <input type="text" id="newExpenseCategory" placeholder="Expense category name">
+      <input type="number" id="newExpenseThreshold" placeholder="Threshold amount">
+      <button id="addExpenseCategoryBtn" class="btn btn-add">Add</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Add Entry</h3>
+      <input type="hidden" id="modalType">
+      <input type="hidden" id="editIndex">
+      <label>Date: <input type="date" id="modalDate"></label><br>
+      <label id="label1">Source/Item: <select id="modalName"></select></label><br>
+      <label>Amount: <input type="number" id="modalAmount"></label><br>
+      <label>Payment:
+        <select id="modalPayment">
+          <option>Cash</option>
+          <option>Card</option>
+          <option>Mobile Transfer</option>
+        </select>
+      </label><br>
+      <button class="btn btn-add" id="modalSubmit">Submit</button>
+      <button class="btn" id="modalCancel">Cancel</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
